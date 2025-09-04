@@ -65,6 +65,7 @@ class _ProductItemState extends State<ProductItem> {
           Row(
             children: [
               Text('quantity: ${widget.product.quantity}'),
+              SizedBox(width: 12,),
               Text('unit price: ${widget.product.unitPrice}'),
             ],
           )
