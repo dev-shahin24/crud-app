@@ -53,11 +53,7 @@ class _ProductItemState extends State<ProductItem> {
                 MaterialPageRoute(
                   builder: (context) => UpdateProductScreen(product: widget.product),
                 ),
-              ).then((value) {
-                if (value == true) {
-                  widget.refreshProductList(); // Refresh after successful update
-                }
-              });
+              );
             }
           },
         ),
