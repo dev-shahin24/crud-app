@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<ProductModel> _productList = [];
+  final List<ProductModel> _productList = [];
   bool _getProductInProgress = false;
 
   @override
@@ -28,18 +28,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product List'),
+        title: const Text('Product List'),
         actions: [
           IconButton(
               onPressed: () {
                 getProductList();
               },
-              icon: Icon(Icons.refresh))
+              icon: const Icon(Icons.refresh))
         ],
       ),
       body: Visibility(
         visible: _getProductInProgress == false,
-        replacement: Center(
+        replacement: const Center(
           child: CircularProgressIndicator(),
         ),
         child: ListView.separated(

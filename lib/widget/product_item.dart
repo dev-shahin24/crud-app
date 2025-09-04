@@ -28,13 +28,13 @@ class _ProductItemState extends State<ProductItem> {
         child: Image.network(
           widget.product.image,
           errorBuilder: (_, __, ___) {
-            return Icon(Icons.error_rounded);
+            return const Icon(Icons.error_rounded);
           },
         ),
       ),
       trailing: Visibility(
         visible: _deleteInProgres == false,
-        replacement: CircularProgressIndicator(),
+        replacement: const CircularProgressIndicator(),
         child: PopupMenuButton<ProductOptions>(
           itemBuilder: (context) {
             return [
@@ -44,10 +44,10 @@ class _ProductItemState extends State<ProductItem> {
                   value: ProductOptions.delete, child: Text('Delete'))
             ];
           },
-          onSelected: (ProductOptions SelectOption) {
-            if (SelectOption == ProductOptions.delete) {
+          onSelected: (ProductOptions selectOption) {
+            if (selectOption == ProductOptions.delete) {
               deleteProduct();
-            } else if (SelectOption == ProductOptions.update) {
+            } else if (selectOption == ProductOptions.update) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -65,7 +65,7 @@ class _ProductItemState extends State<ProductItem> {
           Row(
             children: [
               Text('quantity: ${widget.product.quantity}'),
-              SizedBox(width: 12,),
+              const SizedBox(width: 12,),
               Text('unit price: ${widget.product.unitPrice}'),
             ],
           )

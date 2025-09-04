@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:crudappp/models/product_model.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 import '../utils/urls.dart';
@@ -20,11 +19,11 @@ class UpdateProductScreen extends StatefulWidget {
 class _UpdateProductScreenState extends State<UpdateProductScreen> {
   bool updateProductInProgress = false;
   final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
-  TextEditingController _nameTEController = TextEditingController();
-  TextEditingController _codeTEController = TextEditingController();
-  TextEditingController _priceTEController = TextEditingController();
-  TextEditingController _quantityTEController = TextEditingController();
-  TextEditingController _imageTEController = TextEditingController();
+  final TextEditingController _nameTEController = TextEditingController();
+  final TextEditingController _codeTEController = TextEditingController();
+  final TextEditingController _priceTEController = TextEditingController();
+  final TextEditingController _quantityTEController = TextEditingController();
+  final TextEditingController _imageTEController = TextEditingController();
 
   @override
   void initState() {
@@ -40,7 +39,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Update'),
+        title: const Text('Update'),
       ),
       body: Form(
         key: _keyForm,
@@ -120,7 +119,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
               ),
               Visibility(
                 visible: updateProductInProgress == false,
-                  replacement: CircularProgressIndicator(),
+                  replacement: const CircularProgressIndicator(),
                   child: ElevatedButton(onPressed: _updateproduct, child: const Text('Update')))
             ],
           ),
