@@ -81,7 +81,7 @@ class _AddToNewScreenState extends State<AddToNewScreen> {
                 ),
                 validator: (String? value) {
                   if (value?.trim().isEmpty ?? true) {
-                    return 'Entery your unit price';
+                    return 'Enter your unit price';
                   }
                   return null;
                 },
