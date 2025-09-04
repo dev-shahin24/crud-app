@@ -2,7 +2,11 @@ import 'dart:convert';
 
 import 'package:crudappp/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+
+import '../utils/urls.dart';
+import '../widget/snackbar_message.dart';
 
 class UpdateProductScreen extends StatefulWidget {
   const UpdateProductScreen({super.key, required this.product});
@@ -14,6 +18,7 @@ class UpdateProductScreen extends StatefulWidget {
 }
 
 class _UpdateProductScreenState extends State<UpdateProductScreen> {
+  bool updateProductInProgress = false;
   final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
   TextEditingController _nameTEController = TextEditingController();
   TextEditingController _codeTEController = TextEditingController();
@@ -100,7 +105,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
               TextFormField(
                 controller: _imageTEController,
                 decoration: const InputDecoration(
-                  labelText: '',
+                  labelText: 'Image',
                   hintText: 'Image',
                 ),
                 validator: (String? value){
@@ -113,7 +118,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
               const SizedBox(
                 height: 24,
               ),
-              ElevatedButton(onPressed: () {}, child: const Text('Update'))
+              ElevatedButton(onPressed: _updateproduct, child: const Text('Update'))
             ],
           ),
         ),
@@ -121,9 +126,43 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
     );
   }
 
-  Future<void> updateproduct() async {
-    if(_keyForm.currentState!.validate() == false){
 
+  Future<void> _updateproduct() async {
+    if (_keyForm.currentState!.validate() == false) {
+      return;
+    }
+    updateProductInProgress = true;
+    setState(() {});
+    Uri uri = Uri.parse(Urls.updateProductUrl(widget.product.id));
+
+    int totalPrice = int.parse(_priceTEController.text) *
+        int.parse(_quantityTEController.text);
+    Map<String, dynamic> requestBody = {
+      "ProductName": _nameTEController.text.trim(),
+      "ProductCode": int.parse(_codeTEController.text.trim()),
+      "Img": _imageTEController.text.trim(),
+      "Qty": int.parse(_quantityTEController.text.trim()),
+      "UnitPrice": int.parse(_priceTEController.text.trim()),
+      "TotalPrice": totalPrice,
+    };
+    Response response = await post(uri,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(requestBody));
+    print(response);
+    print(response.body);
+    updateProductInProgress = false;
+    setState(() {});
+
+    if (response.statusCode == 200) {
+      final decodeJson = jsonDecode(response.body);
+      if (decodeJson['status'] == 'success') {
+        showSnackBarMessage(context, 'update successful');
+      } else {
+        String errorMessage = decodeJson['data'];
+        showSnackBarMessage(context, errorMessage);
+      }
     }
   }
 

@@ -49,11 +49,15 @@ class _ProductItemState extends State<ProductItem> {
               deleteProduct();
             } else if (SelectOption == ProductOptions.update) {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => UpdateProductScreen(
-                            product: widget.product,
-                          )));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UpdateProductScreen(product: widget.product),
+                ),
+              ).then((value) {
+                if (value == true) {
+                  widget.refreshProductList(); // Refresh after successful update
+                }
+              });
             }
           },
         ),
