@@ -23,11 +23,13 @@ class _AddToNewScreenState extends State<AddToNewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Add New Product'),
+      ),
       body: Form(
         key: _keyForm,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
               TextFormField(
