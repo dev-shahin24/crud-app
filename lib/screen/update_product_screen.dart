@@ -118,7 +118,10 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
               const SizedBox(
                 height: 24,
               ),
-              ElevatedButton(onPressed: _updateproduct, child: const Text('Update'))
+              Visibility(
+                visible: updateProductInProgress == false,
+                  replacement: CircularProgressIndicator(),
+                  child: ElevatedButton(onPressed: _updateproduct, child: const Text('Update')))
             ],
           ),
         ),
